@@ -6,6 +6,7 @@
 - XY Plotカスタムノード [qq-nodes-comfyui](https://github.com/kenjiqq/qq-nodes-comfyui) で使用することを前提としているが、他のカスタムノードでも使えるかもしれない
 
 ## サンプルワークフロー
+画像を ComfyUI にドロップするとワークフローを再現できます。
 
 SDXL の XY Plot
 <a href="./img/XYPlot_SDXL_20240920.png"><img src="./img/XYPlot_SDXL_20240920.png"></a>
