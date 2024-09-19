@@ -1,6 +1,6 @@
 """
 @author: da2el
-@title: D2 XY Plot Utils
+@title: D2 XYPlot Utils
 @description: A parameter output node compatible with qq-nodes-comfyui. It outputs parameters such as Prompt S/R and seed.
 """
 
