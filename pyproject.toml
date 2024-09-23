@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-d2-xyplot-utils"
+description = "A parameter output node compatible with qq-nodes-comfyui. It outputs parameters such as Prompt S/R and seed."
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/da2el-ai/ComfyUI-d2-xyplot-utils"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "da2el"
+DisplayName = "ComfyUI-d2-xyplot-utils"
+Icon = ""
