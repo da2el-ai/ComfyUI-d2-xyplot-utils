@@ -2,10 +2,10 @@
 
 - XY Plot で Prompt S/R を使うためのカスタムノード
 - seed や cfg など汎用的なパラメータを記載するためのノードも同梱
-- 要素を改行で区切るので操作が簡単
+- 要素を改行で区切るので入力が簡単
 - XY Plotカスタムノード [qq-nodes-comfyui](https://github.com/kenjiqq/qq-nodes-comfyui) で使用することを前提としているが、他のカスタムノードでも使えるかもしれない
 
-## サンプルワークフロー
+## Sample Workflow
 画像を ComfyUI にドロップするとワークフローを再現できます。
 
 SDXL の XY Plot
@@ -15,18 +15,24 @@ NovelAI の XY Plot
 <a href="./img/XYPlot_NAI_20240920.png"><img src="./img/XYPlot_NAI_20240920.png"></a>
 
 
-## install
 
+## Installation Options
+
+### 1. ComfyUI Manager Installation
+ComfyUI Manager → Custom Node Manager → `D2 XYPlot` を検索してインストール
+
+### 2. Git Pull Method
 custom_nodes フォルダで `git clone` する
 ```
 > git clone https://github.com/da2el-ai/ComfyUI-d2-xyplot-utils.git
 ```
 
 
-
 ## D2 Prompt S/R
 
 <img src="./img/prompt_sr.png">
+
+文字列を検索・置換してリスト出力するノード。
 
 ### prompt
 プロンプト。改行を含めてもOK。
@@ -43,11 +49,68 @@ custom_nodes フォルダで `git clone` する
 
 <img src="./img/multi.png">
 
+数値、文字列などのリストを出力するノード。
+
 ### type
 - FLOAT：浮動小数点数。CFGなど
 - INT: 整数。stepsなど
 - STRING: 文字列。samplerなど
 - SEED: 乱数生成ボタンで seed値を入力できる
+
+### Add Random
+
+`type` が `SEED` の時に表示する。
+入力欄に乱数を追加する。
+
+
+## D2 Regex Switcher
+
+<img src="./img/regex_switcher.png">
+
+主な目的は Checkpoint 毎にクオリティタグを切り替えるため。
+入力した `text` の中に合致する文字列があると対象文字列を出力する。
+
+### text
+検索対象文字列。
+Checkpoint のフルパスなど。
+
+### regex_and_output
+検索文字列と出力文字列の一覧。
+下記のフォーマットで記入する。
+
+```
+検索文字 1（正規表現も使用可能）
+--
+出力文字列 1
+--
+検索文字 2（正規表現も使用可能）
+--
+出力文字列 2
+--
+--
+合致するものが無い時に出力する文字
+```
+
+### 実行時に追加される最下段の文字欄
+
+入力された `text` の確認用。
+
+
+## D2 Checkpoint Loader
+
+<img src="./img/checkpoint_loader.png">
+
+Checkpoint名、ハッシュ、フルパスを出力する Checkpoint Loader。
+Checkpoint のパスが必要な時に使う。
+
+実装はほとんど [mikey_nodes](https://github.com/bash-j/mikey_nodes) のコードを使わせていただきました。
+
+### model / clip / vae
+従来の CheckpointLoader と同じ。
+
+### ckpt_name / ckpt_hash / ckpt_fullpath
+Checkpoint名、ハッシュ、フルパス。
+
 
 ## 謝辞
 qq-nodes-comfyui という素晴らしいカスタムノードを作ってくれた kenjiqq 氏に感謝。
