@@ -1,17 +1,19 @@
 # D2 XYPlot Utils
 
-- XY Plot で Prompt S/R を使うためのカスタムノード
-- seed や cfg など汎用的なパラメータを記載するためのノードも同梱
-- 要素を改行で区切るので入力が簡単
-- XY Plotカスタムノード [qq-nodes-comfyui](https://github.com/kenjiqq/qq-nodes-comfyui) で使用することを前提としているが、他のカスタムノードでも使えるかもしれない
+[English][<a href="README_ja.md">日本語</a>][<a href="README_zh.md">繁体中文</a>]
+
+- Custom nodes for using Prompt S/R with XY Plot
+- Also includes nodes for listing general parameters such as seed and cfg
+- Easy input with elements separated by line breaks
+- Designed for use with the XY Plot custom node [qq-nodes-comfyui](https://github.com/kenjiqq/qq-nodes-comfyui), but may work with other custom nodes
 
 ## Sample Workflow
-画像を ComfyUI にドロップするとワークフローを再現できます。
+You can reproduce the workflow by dropping the image into ComfyUI.
 
-SDXL の XY Plot
+XY Plot for SDXL
 <a href="./img/XYPlot_SDXL_20240920.png"><img src="./img/XYPlot_SDXL_20240920.png"></a>
 
-NovelAI の XY Plot
+XY Plot for NovelAI
 <a href="./img/XYPlot_NAI_20240920.png"><img src="./img/XYPlot_NAI_20240920.png"></a>
 
 
@@ -19,10 +21,10 @@ NovelAI の XY Plot
 ## Installation Options
 
 ### 1. ComfyUI Manager Installation
-ComfyUI Manager → Custom Node Manager → `D2 XYPlot` を検索してインストール
+ComfyUI Manager → Custom Node Manager → Search for D2 XYPlot and install
 
 ### 2. Git Pull Method
-custom_nodes フォルダで `git clone` する
+In the custom_nodes folder, use `git clone`:
 ```
 > git clone https://github.com/da2el-ai/ComfyUI-d2-xyplot-utils.git
 ```
@@ -32,96 +34,92 @@ custom_nodes フォルダで `git clone` する
 
 <img src="./img/prompt_sr.png">
 
-文字列を検索・置換してリスト出力するノード。
+A node that searches and replaces strings and outputs a list.
 
 ### prompt
-プロンプト。改行を含めてもOK。
+The prompt. Line breaks are acceptable.
 
 ### search_txt
-検索対象テキスト。複数単語を含めてもOK。
-改行は使えない。
+Text to search for. Multiple words are allowed.
+Line breaks are not supported.
 
 ### replace
-置換用テキスト。
-置換したいテキストを1行毎に記述。
+Replacement text.
+Write the text you want to replace, one line per replacement.
+
 
 ## D2 Multi Output
 
 <img src="./img/multi.png">
 
-数値、文字列などのリストを出力するノード。
+A node that outputs lists of numbers, strings, etc.
 
 ### type
-- FLOAT：浮動小数点数。CFGなど
-- INT: 整数。stepsなど
-- STRING: 文字列。samplerなど
-- SEED: 乱数生成ボタンで seed値を入力できる
+- FLOAT: Floating-point numbers. For CFG, etc.
+- INT: Integers. For steps, etc.
+- STRING: Strings. For samplers, etc.
+- SEED: Can input seed values with a random number generation button.
 
 ### Add Random
-
-`type` が `SEED` の時に表示する。
-入力欄に乱数を追加する。
-
+Displayed when `type` is `SEED`.
+Adds random numbers to the input field.
 
 ## D2 Regex Switcher
 
-<img src="./img/regex_switcher_1.png">
+<img src="./img/regex_switcher.png">
 
-主な目的は Checkpoint 毎にクオリティタグを切り替えるため。
-入力した `text` の中に合致する文字列があると対象文字列と、何番目に合致したか（0から開始）を出力する。
+The main purpose is to switch quality tags for each Checkpoint.
+Outputs the target string and the index of the match (starting from 0) if a matching string is found in the input `text`.
 
-上の画像では `animagine.safetensors` を受け取り、検索条件 `pony` に合致しないのでデフォルト出力の `sdxl quality tag` が出力されている。
-検索条件に合致していないので `index: -1` になっている。
+In the image above, `animagine.safetensors` is received, and as it doesn't match the search condition `pony`, the default output `sdxl quality tag` is displayed.
+As there's no match, the `index: -1` is shown.
+
 
 ### text
-検索対象文字列。
-Checkpoint のフルパスなど。
+The text to search in.
+For example, the full path of a Checkpoint.
 
 ### regex_and_output
-検索文字列と出力文字列の一覧。
-下記のフォーマットで記入する。
+A list of search strings and output strings.
+Enter in the following format:
 
 ```
-検索文字 1（正規表現も使用可能）
+Search string 1 (regex can be used)
 --
-出力文字列 1
+Output string 1
 --
-検索文字 2（正規表現も使用可能）
+Search string 2 (regex can be used)
 --
-出力文字列 2
+Output string 2
 --
 --
-合致するものが無い時に出力する文字
+String to output when no match is found
 ```
 
-### 実行時に追加される最下段の文字欄
+### Text field added at the bottom during execution
+For confirming the input `text`.
 
-入力された `text` の確認用。
-
-### 使用例
+### Usage Example
 
 <img src="./img/regex_switcher_2.png">
 
-この例では合致した番号（`index`）を Easy Use の Text Index Switch に渡して切り替えている。
-
-合致しないと `-1` になってしまうので、全ての文字列に合致する正規表現 `.+` を使ってデフォルト出力の代わりにしている。
-
+In this example, the matched number (`index`) is passed to [Easy Use](https://github.com/yolain/ComfyUI-Easy-Use)'s "Text Index Switch" for switching.
+To avoid getting `-1` when there's no match, a regex pattern `.+` that matches all strings is used as a default output.
 
 ## D2 Checkpoint Loader
 
 <img src="./img/checkpoint_loader.png">
 
-Checkpoint名、ハッシュ、フルパスを出力する Checkpoint Loader。
-Checkpoint のパスが必要な時に使う。
+A Checkpoint Loader that outputs the Checkpoint name, hash, and full path.
+Used when the Checkpoint path is needed.
 
-実装はほとんど [mikey_nodes](https://github.com/bash-j/mikey_nodes) のコードを使わせていただきました。
+The implementation mostly uses code from [mikey_nodes](https://github.com/bash-j/mikey_nodes).
 
 ### model / clip / vae
-従来の CheckpointLoader と同じ。
+Same as the conventional CheckpointLoader.
 
 ### ckpt_name / ckpt_hash / ckpt_fullpath
-Checkpoint名、ハッシュ、フルパス。
+Checkpoint name, hash, and full path.
 
-
-## 謝辞
-qq-nodes-comfyui という素晴らしいカスタムノードを作ってくれた kenjiqq 氏に感謝。
+## Acknowledgments
+Thanks to kenjiqq for creating the excellent custom node qq-nodes-comfyui.

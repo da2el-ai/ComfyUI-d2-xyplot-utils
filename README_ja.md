@@ -1,6 +1,6 @@
 # D2 XYPlot Utils
 
-[<a href="README.md">English</a>][日本語]
+[<a href="README.md">English</a>][日本語][<a href="README_zh.md">繁体中文</a>]
 
 - XY Plot で Prompt S/R を使うためのカスタムノード
 - seed や cfg など汎用的なパラメータを記載するためのノードも同梱
@@ -104,7 +104,7 @@ Checkpoint のフルパスなど。
 
 <img src="./img/regex_switcher_2.png">
 
-この例では合致した番号（`index`）を Easy Use の Text Index Switch に渡して切り替えている。
+この例では合致した番号（`index`）を [Easy Use](https://github.com/yolain/ComfyUI-Easy-Use) の Text Index Switch に渡して切り替えている。
 
 合致しないと `-1` になってしまうので、全ての文字列に合致する正規表現 `.+` を使ってデフォルト出力の代わりにしている。
 
