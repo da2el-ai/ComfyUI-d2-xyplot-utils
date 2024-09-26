@@ -3,7 +3,7 @@ import json
 import hashlib
 import folder_paths
 import comfy.sd
-from modules.checkpoint_util import calculate_file_hash, get_cached_file_hashes, cache_file_hash, get_file_hash
+from ..modules.checkpoint_util import calculate_file_hash, get_cached_file_hashes, cache_file_hash, get_file_hash
 
 
 
