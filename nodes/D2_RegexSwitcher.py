@@ -19,8 +19,8 @@ class D2_RegexSwitcher:
             },
         }
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("text",)
+    RETURN_TYPES = ("STRING","INT",)
+    RETURN_NAMES = ("text","index",)
     FUNCTION = "regex_switch"
     CATEGORY = "D2"
 
@@ -45,10 +45,10 @@ class D2_RegexSwitcher:
                     default_output = output
 
         # 各正規表現をチェックし、マッチしたら対応する出力を返す
-        for item in regex_output_list:
+        for index, item in enumerate(regex_output_list):
             if re.search(item['regex'], text, re.IGNORECASE):
                 # return (item['output'],)
-                return {"ui": {"text": text}, "result": (item['output'],)}
+                return {"ui": {"text": text}, "result": (item['output'],index,)}
 
         # マッチしなかった場合はデフォルト出力を返す
-        return {"ui": {"text": text}, "result": (default_output,)}
+        return {"ui": {"text": text}, "result": (default_output, -1)}

@@ -65,10 +65,13 @@ custom_nodes フォルダで `git clone` する
 
 ## D2 Regex Switcher
 
-<img src="./img/regex_switcher.png">
+<img src="./img/regex_switcher_1.png">
 
 主な目的は Checkpoint 毎にクオリティタグを切り替えるため。
-入力した `text` の中に合致する文字列があると対象文字列を出力する。
+入力した `text` の中に合致する文字列があると対象文字列と、何番目に合致したか（0から開始）を出力する。
+
+上の画像では `animagine.safetensors` を受け取り、検索条件 `pony` に合致しないのでデフォルト出力の `sdxl quality tag` が出力されている。
+検索条件に合致していないので `index: -1` になっている。
 
 ### text
 検索対象文字列。
@@ -94,6 +97,14 @@ Checkpoint のフルパスなど。
 ### 実行時に追加される最下段の文字欄
 
 入力された `text` の確認用。
+
+### 使用例
+
+<img src="./img/regex_switcher_2.png">
+
+この例では合致した番号（`index`）を Easy Use の Text Index Switch に渡して切り替えている。
+
+合致しないと `-1` になってしまうので、全ての文字列に合致する正規表現 `.+` を使ってデフォルト出力の代わりにしている。
 
 
 ## D2 Checkpoint Loader
